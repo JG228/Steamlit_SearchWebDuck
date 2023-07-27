@@ -7,10 +7,9 @@ from langchain.tools import DuckDuckGoSearchRun
 with st.sidebar:
     openai_api_key = st.secrets["openai"]["api_key"]
     "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
-    "[View the source code](https://github.com/streamlit/llm-examples/blob/main/pages/2_Chat_with_search.py)"
-    "[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/llm-examples?quickstart=1)"
+    "[View the source code](https://github.com/JG21243/Steamlit_SearchWeb/blob/main/app.py)"
 
-st.title("Josh's AI Assistant")
+st.title("Josh's Web Powered AI Assistant")
 
 """
 In this example, we're using `StreamlitCallbackHandler` to display the thoughts and actions of an agent in an interactive Streamlit app.
