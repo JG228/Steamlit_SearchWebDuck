@@ -2,7 +2,7 @@ import streamlit as st
 from langchain.agents import initialize_agent, AgentType
 from langchain.callbacks import StreamlitCallbackHandler
 from langchain.chat_models import ChatOpenAI
-from langchain.tools import DuckDuckGoSearchRun
+from your_module_path import GoogleSearchRun
 
 with st.sidebar:
     openai_api_key = st.secrets["openai"]["api_key"]
@@ -38,7 +38,7 @@ if prompt := st.chat_input(placeholder="Who won the Women's U.S. Open in 2018?")
         st.stop()
 
     llm = ChatOpenAI(model_name="gpt-3.5-turbo", openai_api_key=openai_api_key, streaming=True)
-    search = DuckDuckGoSearchRun(name="Search")
+    search = GoogleSearchRun(name="Search")
     search_agent = initialize_agent([search], llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, handle_parsing_errors=True)
     with st.spinner("Assistant is thinking..."):
         response = search_agent.run(st.session_state.messages, callbacks=[StreamlitCallbackHandler()])
