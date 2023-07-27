@@ -43,4 +43,4 @@ if prompt := st.chat_input(placeholder="Who won the Women's U.S. Open in 2018?")
     with st.spinner("Assistant is thinking..."):
         response = search_agent.run(st.session_state.messages, callbacks=[StreamlitCallbackHandler()])
         st.session_state.messages.append({"role": "assistant", "content": response})
-        st
+        st.markdown(f"**Assistant**: {response}", unsafe_allow_html=True)
