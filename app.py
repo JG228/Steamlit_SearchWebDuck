@@ -2,7 +2,7 @@ import streamlit as st
 from langchain.agents import initialize_agent, AgentType
 from langchain.callbacks import StreamlitCallbackHandler
 from langchain.chat_models import ChatOpenAI
-from your_module_path import GoogleSearchRun
+from google_search_run import GoogleSearchRun
 
 with st.sidebar:
     openai_api_key = st.secrets["openai"]["api_key"]
