@@ -26,11 +26,13 @@ if "messages" not in st.session_state:
     ]
 
 for msg in st.session_state.messages:
-    st.chat_message(msg["role"]).write(st.markdown(msg["content"], unsafe_allow_html=True))
+    if msg["role"] == "assistant":
+        st.markdown(f"**Assistant**: {msg['content']}", unsafe_allow_html=True)
+    else:
+        st.markdown(f"**User**: {msg['content']}", unsafe_allow_html=True)
 
 if prompt := st.chat_input(placeholder="Who won the Women's U.S. Open in 2018?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(st.markdown(prompt, unsafe_allow_html=True))
 
     if not openai_api_key:
         st.info("Please add your OpenAI API key to continue.")
@@ -39,8 +41,7 @@ if prompt := st.chat_input(placeholder="Who won the Women's U.S. Open in 2018?")
     llm = ChatOpenAI(model_name="gpt-3.5-turbo", openai_api_key=openai_api_key, streaming=True)
     search = DuckDuckGoSearchRun(name="Search")
     search_agent = initialize_agent([search], llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, handle_parsing_errors=True)
-    with st.chat_message("assistant"):
-        st_cb = StreamlitCallbackHandler(st.container(), expand_new_thoughts=False)
-        response = search_agent.run(st.session_state.messages, callbacks=[st_cb])
+    with st.spinner("Assistant is thinking..."):
+        response = search_agent.run(st.session_state.messages, callbacks=[StreamlitCallbackHandler()])
         st.session_state.messages.append({"role": "assistant", "content": response})
-        st.write(st.markdown(response, unsafe_allow_html=True))
+        st
